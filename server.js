@@ -9,7 +9,7 @@ const {
   writeToFile,
 } = require('./helpers/fsUtils');
 
-const PORT = 3001;
+const PORT = process.env.port || 3001;
 
 const app = express();
 
@@ -49,7 +49,7 @@ app.post('/api/notes', (req, res) =>{
     };
 
     readAndAppend(newNote, './db/db.json');
-    res.json(`Note added successfully 🚀`);
+    res.json(`Note added successfully`);
   } else {
     res.error('Error in adding note');
   }
@@ -65,7 +65,7 @@ app.delete('/api/notes/:id', (req, res) => {
 
       writeToFile('./db/db.json', result);
 
-      res.json(`Item ${noteId} has been deleted 🗑️`);
+      res.json(`Item ${noteId} has been deleted`);
     });
 });
 
@@ -78,5 +78,5 @@ app.get('*', (req, res) =>
 
 
 app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
+  console.log(`App listening at http://localhost:${PORT}`)
 );
